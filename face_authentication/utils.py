@@ -19,6 +19,14 @@ def clear_dir_if_exists(input_dir):
         shutil.rmtree(input_dir)
 
 
+def get_all_dir(input_dir):
+    return [x for x in os.listdir(input_dir) if os.path.isdir(os.path.join(input_dir, x))]
+
+
+def get_all_files(input_dir):
+    return [x for x in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, x))]
+
+
 class EmbedsUtils:
     def __init__(self, path):
         self.path = path

@@ -5,21 +5,13 @@ import numpy as np
 from face_authentication import utils
 
 
-def get_all_dir(input_dir):
-    return [x for x in os.listdir(input_dir) if os.path.isdir(os.path.join(input_dir, x))]
-
-
-def get_all_files(input_dir):
-    return [x for x in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, x))]
-
-
 def do_save_embeds(input_dir, embeds_dir):
     master_embeds_array = None
     master_labels_array = list()
-    for class_name in get_all_dir(input_dir):
-        for image_file in get_all_files(os.path.join(input_dir, class_name)):
+    for class_name in utils.get_all_dir(input_dir):
+        for image_file in utils.get_all_files(os.path.join(input_dir, class_name)):
             loaded_image = face_recognition.load_image_file(os.path.join(input_dir, class_name, image_file))
-            embed = face_recognition.face_encodings(loaded_image)
+            embed = face_recognition.face_encodings(loaded_image)[:1]
             master_embeds_array = embed if master_embeds_array is None else np.concatenate([master_embeds_array, embed])
             master_labels_array.append(class_name)
     embed_util = utils.EmbedsUtils(embeds_dir)
