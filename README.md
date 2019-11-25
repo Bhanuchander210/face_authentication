@@ -36,3 +36,21 @@ $ python face_authentication/predict.py --test-image /path/to/new_person_1.png -
 Face authorized as : perseon_1
 
 ```
+
+- Evaluating model
+
+```commandline
+$ python face_authentication/eval_model.py --test-dir /path/to/testDataSet --embeds-dir /path/to/embeds/dir
+```
+
+Output :
+
+```text
+class: ABDUL_KALAM, accuracy: 1.000, distances: 0.000-0.391-0.548, total: 13
+class: Tariq_Aziz, accuracy: 1.000, distances: 0.000-0.301-0.425, total: 6
+class: Trent_Lott, accuracy: 1.000, distances: 0.000-0.401-0.578, total: 16
+class: Venus_Williams, accuracy: 1.000, distances: 0.000-0.383-0.485, total: 17
+class: Vladimir_Putin, accuracy: 1.000, distances: 0.000-0.404-0.522, total: 49
+class: KALPANA_CHAWLA, accuracy: 1.000, distances: 0.000-0.289-0.475, total: 15
+class: Tim_Henman, accuracy: 0.947, distances: 0.000-0.485-0.579, total: 19
+```

@@ -9,7 +9,7 @@ def main(embeds_dir, input_dir):
     emb_util = utils.EmbedsUtils(embeds_dir)
     result = dict()
     for class_name in utils.get_all_dir(input_dir):
-        result[class_name] = 0
+        result[class_name] = list()
         count = 0
         actual_count = 0
         cpc = 0
@@ -22,13 +22,17 @@ def main(embeds_dir, input_dir):
                 count = count + 1
                 if class_name == emb_util.get_labels_data()[index]:
                     cpc = cpc + 1
-                result[class_name] = result[class_name] + distance
+                result[class_name].append(distance)
             logging.info("For Class : {}, Count : {}, Distance : {}".format(class_name, count, distance))
         accuracy = cpc / actual_count
         false_prediction = (count - cpc) / actual_count
-        avg_distance = result[class_name]/count
+        avg_distance = sum(result[class_name])/count
+        max_distance = max(result[class_name])
+        min_distance = min(result[class_name])
         result[class_name] = avg_distance
-        print("class : {}, accuracy : {}, avg.distance: {}, total size : {}".format(class_name, str(accuracy), str(avg_distance), str(actual_count)))
+        print("class: {}, accuracy: {:.3f}, distances: {:.3f}-{:.3f}-{:.3f}, total: {}".format(class_name, accuracy,
+                                                                               min_distance, avg_distance,
+                                                                               max_distance, actual_count))
         if false_prediction:
             print ("Warning. False prediction found in class {} : {}".format(class_name, str(false_prediction)))
 
