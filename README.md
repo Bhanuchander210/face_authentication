@@ -18,10 +18,17 @@ input_dir
 
 #### Commands
 
+- Create augmented inputDataSet
+
+```commandline
+python face_authentication/augmenter.py --input-dir /path/to/inputDir --output-dir /path/to/augmentedOutDir
+```
+
+
 - Creating embeds from the input directory for multiple classes
 
 ```commandline
-python face_authentication/create_embeds.py --input-dir /path/to/input/classes --embeds-dir /path/to/embeds/dir
+python face_authentication/create_embeds.py --input-dir /path/to/augmentedOutDir --embeds-dir /path/to/embeds/dir
 ```
 
 - Predict / Authentication check with saved embeds

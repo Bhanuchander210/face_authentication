@@ -54,9 +54,18 @@ def face_distance(face_encodings, face_to_compare):
     return np.linalg.norm(face_encodings - face_to_compare, axis=1)
 
 
-def compare_faces(known_face_encodings, face_encoding_to_check):
-    distance = face_distance(known_face_encodings, face_encoding_to_check)
-    min_distance = min(distance)
-    found_index = list(distance).index(min_distance)
-    logging.info("Minimum distance observed : {} in index : {}".format(str(min_distance), str(found_index)))
-    return [min_distance, found_index]
+def minimum_distance_classifier(emb_util, face_encoding_to_check):
+    embed_data = emb_util.get_embeds_data()
+    label_data = emb_util.get_labels_data()
+    result = {}
+    for x in list(set(label_data)):
+        class_indices = np.nonzero(np.array(label_data) == x)[0]
+        x_embed_data = np.take(embed_data, list(class_indices), 0)
+        distances = face_distance(x_embed_data, face_encoding_to_check)
+        avg = sum(distances)/len(distances)
+        logging.info("[Test] : Average distance value : {} for the class : {}".format(str(avg), x))
+        result[x] = avg
+    result_class = min(result, key=result.get)
+    logging.info("[Result] : Minimum distance observed : {} for the class : {}".format(str(result[result_class]),
+                                                                                       result_class))
+    return [result[result_class], result_class]
