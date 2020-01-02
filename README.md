@@ -2,6 +2,10 @@
 Simple face authentication system
 
 
+### Work Flow
+
+![work](face_auth.png)
+
 
 #### Input Directory Structure
 
