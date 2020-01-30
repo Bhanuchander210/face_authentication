@@ -9,6 +9,14 @@ logging.basicConfig(filename='face_auth_logs.out', format='%(asctime)-15s : %(fi
 
 default_threshold = 0.6
 
+models = ['dlib', 'vgg', 'openface']
+
+thresholds = {
+    "dlib" : 0.6,
+    "vgg" : 100,
+    "openface": 0.15
+}
+
 
 def get_logging():
     return logging
@@ -17,6 +25,11 @@ def get_logging():
 def clear_dir_if_exists(input_dir):
     if os.path.exists(input_dir):
         shutil.rmtree(input_dir)
+
+
+def create_dir_if_not_exists(in_dir):
+    if not os.path.exists(in_dir):
+        os.mkdir(in_dir)
 
 
 def get_all_dir(input_dir):

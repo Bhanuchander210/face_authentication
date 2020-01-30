@@ -28,21 +28,45 @@ input_dir
 python face_authentication/augmenter.py --input-dir /path/to/inputDir --output-dir /path/to/augmentedOutDir
 ```
 
+- Create Pre-Processed images from actual data of both train and test Images
+
+```commandline
+python face_authentication/preprocess.py --input-dir trainDataSet --output-dir preProcessTrainDataSet
+python face_authentication/preprocess.py --input-dir testDataSet --output-dir preProcessTestDataSet
+```
 
 - Creating embeds from the input directory for multiple classes
 
 ```commandline
-python face_authentication/create_embeds.py --input-dir /path/to/augmentedOutDir --embeds-dir /path/to/embeds/dir
+python face_authentication/create_embeds.py --input-dir /path/to/preProcessTrainDataSet --embeds-dir /path/to/embeds/dir
 ```
+
+#### Evaluate with models
+
+Available Models :
+
+- dlib
+- vgg
+- openface (keras-openface)
+
+###### Commands
+
+
+- Evaluation command 
+
+```commandline
+python face_authentication/eval_model.py --test-dir preProcessTestDataSet --embeds-dir embed_dir --model-name dlib
+```
+
 
 - Predict / Authentication check with saved embeds
 
 ```commandline
-$ python face_authentication/predict.py --test-image /path/to/unauth_image.png --embeds-dir /path/to/embeds/dir
+$ python face_authentication/predict.py --test-image /path/to/unauth_image.png --embeds-dir /path/to/embeds/dir --model-name dlib
 
 Unauthorized person.
 
-$ python face_authentication/predict.py --test-image /path/to/new_person_1.png --embeds-dir /path/to/embeds/dir
+$ python face_authentication/predict.py --test-image /path/to/new_person_1.png --embeds-dir /path/to/embeds/dir --model-name dlib
 
 Face authorized as : perseon_1
 
@@ -51,7 +75,7 @@ Face authorized as : perseon_1
 - Evaluating model
 
 ```commandline
-$ python face_authentication/eval_model.py --test-dir /path/to/testDataSet --embeds-dir /path/to/embeds/dir
+$ python face_authentication/eval_model.py --test-dir /path/to/testDataSet --embeds-dir /path/to/embeds/dir --model-name dlib
 ```
 
 Output :
@@ -64,4 +88,6 @@ class: Venus_Williams, accuracy: 1.000, distances: 0.000-0.383-0.485, total: 17
 class: Vladimir_Putin, accuracy: 1.000, distances: 0.000-0.404-0.522, total: 49
 class: KALPANA_CHAWLA, accuracy: 1.000, distances: 0.000-0.289-0.475, total: 15
 class: Tim_Henman, accuracy: 0.947, distances: 0.000-0.485-0.579, total: 19
+#################################
+Model : dlib, average accuracy : 1.0
 ```
