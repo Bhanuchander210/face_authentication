@@ -49,9 +49,9 @@ python face_authentication/create_embeds.py --input-dir /path/to/preProcessTrain
 
 Available Models :
 
-- dlib
-- vgg
-- openface (keras-openface)
+- [dlib](https://pypi.org/project/dlib/)
+- [vgg resnet50](https://github.com/rcmalli/keras-vggface)
+- [openface (keras-openface)](https://github.com/iwantooxxoox/Keras-OpenFace)
 
 ###### Commands
 
