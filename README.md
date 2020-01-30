@@ -41,6 +41,10 @@ python face_authentication/preprocess.py --input-dir testDataSet --output-dir pr
 python face_authentication/create_embeds.py --input-dir /path/to/preProcessTrainDataSet --embeds-dir /path/to/embeds/dir
 ```
 
+#### Data :
+
+- [5 Celebrity faces data set](https://www.kaggle.com/dansbecker/5-celebrity-faces-dataset)
+
 #### Evaluate with models
 
 Available Models :
@@ -50,7 +54,6 @@ Available Models :
 - openface (keras-openface)
 
 ###### Commands
-
 
 - Evaluation command 
 
@@ -78,16 +81,47 @@ Face authorized as : perseon_1
 $ python face_authentication/eval_model.py --test-dir /path/to/testDataSet --embeds-dir /path/to/embeds/dir --model-name dlib
 ```
 
-Output :
+#### Output :
+
+Note : 
+
+- No false acceptance presented in dlib, vgg.
+- Openface (Keras-openface) is not good for one shot learning.
+
 
 ```text
-class: ABDUL_KALAM, accuracy: 1.000, distances: 0.000-0.391-0.548, total: 13
-class: Tariq_Aziz, accuracy: 1.000, distances: 0.000-0.301-0.425, total: 6
-class: Trent_Lott, accuracy: 1.000, distances: 0.000-0.401-0.578, total: 16
-class: Venus_Williams, accuracy: 1.000, distances: 0.000-0.383-0.485, total: 17
-class: Vladimir_Putin, accuracy: 1.000, distances: 0.000-0.404-0.522, total: 49
-class: KALPANA_CHAWLA, accuracy: 1.000, distances: 0.000-0.289-0.475, total: 15
-class: Tim_Henman, accuracy: 0.947, distances: 0.000-0.485-0.579, total: 19
+Evaluating the model : dlib
+class: ben_afflek, accuracy: 1.000, distances: 0.464-0.471-0.481, total images: 4
+class: elton_john, accuracy: 1.000, distances: 0.523-0.551-0.571, total images: 5
+class: jerry_seinfeld, accuracy: 1.000, distances: 0.392-0.429-0.494, total images: 5
+class: madonna, accuracy: 1.000, distances: 0.502-0.554-0.595, total images: 5
+class: mindy_kaling, accuracy: 1.000, distances: 0.384-0.444-0.494, total images: 5
 #################################
 Model : dlib, average accuracy : 1.0
+#################################
+
+
+Evaluating the model : vgg
+class: ben_afflek, accuracy: 0.250, distances: 99.687-99.687-99.687, total images: 4
+class: elton_john, accuracy: 0.000, distances: -1.000--1.000--1.000, total images: 5
+class: jerry_seinfeld, accuracy: 0.400, distances: 86.629-91.676-96.723, total images: 5
+class: madonna, accuracy: 0.000, distances: -1.000--1.000--1.000, total images: 5
+class: mindy_kaling, accuracy: 0.400, distances: 93.652-93.750-93.848, total images: 5
+#################################
+Model : vgg, average accuracy : 0.21000000000000002
+#################################
+
+Evaluating the model : openface
+class: ben_afflek, accuracy: 0.000, distances: 0.142-0.142-0.142, total images: 4
+Warning. False prediction found in class ben_afflek : 0.25
+class: elton_john, accuracy: 0.000, distances: -1.000--1.000--1.000, total images: 5
+class: jerry_seinfeld, accuracy: 0.200, distances: 0.146-0.146-0.146, total images: 5
+class: madonna, accuracy: 0.000, distances: 0.141-0.141-0.141, total images: 5
+Warning. False prediction found in class madonna : 0.2
+class: mindy_kaling, accuracy: 0.000, distances: -1.000--1.000--1.000, total images: 5
+#################################
+Model : openface, average accuracy : 0.04
+#################################
+
+
 ```
